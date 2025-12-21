@@ -7,12 +7,22 @@ interface DesktopIconProps {
 }
 
 export const DesktopIcon: React.FC<DesktopIconProps> = ({ icon, onDoubleClick }) => {
+  const isImageIcon = icon.icon.startsWith('http');
+
   return (
     <div
       className="win-icon w-20 text-center"
       onDoubleClick={() => onDoubleClick(icon.appType)}
     >
-      <span className="text-4xl drop-shadow-lg">{icon.icon}</span>
+      {isImageIcon ? (
+        <img 
+          src={icon.icon} 
+          alt={icon.name} 
+          className="w-10 h-10 mx-auto object-contain drop-shadow-lg"
+        />
+      ) : (
+        <span className="text-4xl drop-shadow-lg">{icon.icon}</span>
+      )}
       <span className="text-xs text-win-icon-text drop-shadow-md leading-tight">
         {icon.name}
       </span>

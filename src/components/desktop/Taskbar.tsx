@@ -64,7 +64,11 @@ export const Taskbar: React.FC<TaskbarProps> = ({
               }`}
               onClick={() => onWindowClick(win.id)}
             >
-              <span className="text-lg">{win.icon}</span>
+              {win.icon.startsWith('http') ? (
+                <img src={win.icon} alt="" className="w-5 h-5 object-contain" />
+              ) : (
+                <span className="text-lg">{win.icon}</span>
+              )}
               <span className="text-xs text-foreground max-w-[120px] truncate">
                 {win.title}
               </span>
