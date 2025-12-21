@@ -1,5 +1,5 @@
-import React from 'react';
-import { Power, Settings, User, FolderOpen } from 'lucide-react';
+import React, { useState } from 'react';
+import { Power, User, FolderOpen, LogOut, RotateCcw, PowerOff } from 'lucide-react';
 import { AppType } from '@/types/window';
 
 interface StartMenuProps {
@@ -9,26 +9,52 @@ interface StartMenuProps {
 }
 
 const pinnedApps = [
-  { icon: '🌐', name: 'Foam', appType: 'foam' as AppType },
-  { icon: '🎨', name: 'Chromify', appType: 'chromify' as AppType },
-  { icon: '🐱', name: 'Scratch 2', appType: 'scratch2legacy' as AppType },
+  { icon: 'https://i.ibb.co/PzsgGvc9/Screenshot-2025-12-21-163921.png', name: 'Foam', appType: 'foam' as AppType },
+  { icon: 'https://www.rw-designer.com/icon-image/25949-256x256x32.png', name: 'Chromify', appType: 'chromify' as AppType },
+  { icon: 'https://upload.wikimedia.org/wikipedia/commons/7/75/Scratch.logo.S.png', name: 'Scratch 2', appType: 'scratch2legacy' as AppType },
   { icon: '👤', name: 'My Profile', appType: 'scratchprofile' as AppType },
-  { icon: '😺', name: 'CattyMod', appType: 'cattymod' as AppType },
-  { icon: '🤖', name: 'AndroidY', appType: 'androidy' as AppType },
-  { icon: '⭐', name: 'Scratch 2 Beta', appType: 'bestscratch2' as AppType },
-  { icon: '🔄', name: 'Scrooch', appType: 'scrooch' as AppType },
-  { icon: '📝', name: 'Notepad', appType: 'notepad' as AppType },
-  { icon: '📁', name: 'Explorer', appType: 'explorer' as AppType },
-  { icon: '🎨', name: 'Paint', appType: 'paint' as AppType },
-  { icon: '🔢', name: 'Calculator', appType: 'calculator' as AppType },
+  { icon: 'https://em-content.zobj.net/source/lg/307/regional-indicator-symbol-letter-c_1f1e8.png', name: 'CattyMod', appType: 'cattymod' as AppType },
+  { icon: 'https://images.macrumors.com/t/-mcSOPyQtjkQ9MfRIevd6fBGeoI=/1600x/article-new/2015/03/Android-Icon-250x250.png', name: 'AndroidY', appType: 'androidy' as AppType },
+  { icon: 'https://user-images.githubusercontent.com/9469400/34407132-e7b63142-ebcd-11e7-85c6-f5ec56192005.png', name: 'Scratch 2 Beta', appType: 'bestscratch2' as AppType },
+  { icon: 'https://avatars.githubusercontent.com/u/221273265?s=200&v=4', name: 'Scrooch', appType: 'scrooch' as AppType },
+  { icon: 'https://em-content.zobj.net/source/microsoft-3D-fluent/433/paperclip_1f4ce.png', name: 'Notepad', appType: 'notepad' as AppType },
+  { icon: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Windows_Explorer.svg/1024px-Windows_Explorer.svg.png', name: 'Explorer', appType: 'explorer' as AppType },
+  { icon: 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/2b/Microsoft_Paint.svg/2048px-Microsoft_Paint.svg.png', name: 'Paint', appType: 'paint' as AppType },
+  { icon: 'https://i.ibb.co/Q3MFJ0S5/download-19.png', name: 'Calculator', appType: 'calculator' as AppType },
 ];
 
 export const StartMenu: React.FC<StartMenuProps> = ({ isOpen, onClose, onAppClick }) => {
+  const [showPowerMenu, setShowPowerMenu] = useState(false);
+
   if (!isOpen) return null;
 
   const handleAppClick = (appType: AppType) => {
     onAppClick(appType);
     onClose();
+  };
+
+  const handleDocumentsClick = () => {
+    onAppClick('explorer');
+    onClose();
+  };
+
+  const handleShutdown = () => {
+    window.close();
+  };
+
+  const handleLogoff = () => {
+    window.close();
+  };
+
+  const handleRestart = () => {
+    window.location.reload();
+  };
+
+  const renderIcon = (icon: string) => {
+    if (icon.startsWith('http')) {
+      return <img src={icon} alt="" className="w-8 h-8 object-contain" />;
+    }
+    return <span className="text-2xl">{icon}</span>;
   };
 
   return (
@@ -53,7 +79,7 @@ export const StartMenu: React.FC<StartMenuProps> = ({ isOpen, onClose, onAppClic
                 className="flex flex-col items-center gap-1 p-3 rounded hover:bg-win-taskbar-hover transition-colors"
                 onClick={() => handleAppClick(app.appType)}
               >
-                <span className="text-2xl">{app.icon}</span>
+                {renderIcon(app.icon)}
                 <span className="text-xs text-foreground text-center leading-tight">{app.name}</span>
               </button>
             ))}
@@ -62,18 +88,49 @@ export const StartMenu: React.FC<StartMenuProps> = ({ isOpen, onClose, onAppClic
 
         {/* Bottom Actions */}
         <div className="border-t border-win-taskbar-hover">
-          <button className="w-full p-3 flex items-center gap-3 hover:bg-win-taskbar-hover transition-colors">
+          <button 
+            className="w-full p-3 flex items-center gap-3 hover:bg-win-taskbar-hover transition-colors"
+            onClick={handleDocumentsClick}
+          >
             <FolderOpen className="w-5 h-5 text-foreground" />
             <span className="text-sm text-foreground">Documents</span>
           </button>
-          <button className="w-full p-3 flex items-center gap-3 hover:bg-win-taskbar-hover transition-colors">
-            <Settings className="w-5 h-5 text-foreground" />
-            <span className="text-sm text-foreground">Settings</span>
-          </button>
-          <button className="w-full p-3 flex items-center gap-3 hover:bg-win-taskbar-hover transition-colors">
-            <Power className="w-5 h-5 text-foreground" />
-            <span className="text-sm text-foreground">Power</span>
-          </button>
+          <div className="relative">
+            <button 
+              className="w-full p-3 flex items-center gap-3 hover:bg-win-taskbar-hover transition-colors"
+              onClick={() => setShowPowerMenu(!showPowerMenu)}
+            >
+              <Power className="w-5 h-5 text-foreground" />
+              <span className="text-sm text-foreground">Power</span>
+            </button>
+            
+            {/* Power Submenu */}
+            {showPowerMenu && (
+              <div className="absolute left-full bottom-0 w-48 bg-win-start-menu win-shadow ml-1">
+                <button 
+                  className="w-full p-3 flex items-center gap-3 hover:bg-win-taskbar-hover transition-colors"
+                  onClick={handleShutdown}
+                >
+                  <PowerOff className="w-4 h-4 text-foreground" />
+                  <span className="text-sm text-foreground">Shut down</span>
+                </button>
+                <button 
+                  className="w-full p-3 flex items-center gap-3 hover:bg-win-taskbar-hover transition-colors"
+                  onClick={handleRestart}
+                >
+                  <RotateCcw className="w-4 h-4 text-foreground" />
+                  <span className="text-sm text-foreground">Restart</span>
+                </button>
+                <button 
+                  className="w-full p-3 flex items-center gap-3 hover:bg-win-taskbar-hover transition-colors"
+                  onClick={handleLogoff}
+                >
+                  <LogOut className="w-4 h-4 text-foreground" />
+                  <span className="text-sm text-foreground">Log off</span>
+                </button>
+              </div>
+            )}
+          </div>
         </div>
       </div>
     </>

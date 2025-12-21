@@ -113,7 +113,11 @@ export const Window: React.FC<WindowProps> = ({
         onDoubleClick={() => onMaximize(window.id)}
       >
         <div className="flex items-center gap-2">
-          <span className="text-lg">{window.icon}</span>
+          {window.icon.startsWith('http') ? (
+            <img src={window.icon} alt="" className="w-5 h-5 object-contain" />
+          ) : (
+            <span className="text-lg">{window.icon}</span>
+          )}
           <span className="text-sm text-card-foreground truncate max-w-[300px]">
             {window.title}
           </span>

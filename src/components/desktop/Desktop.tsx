@@ -7,18 +7,18 @@ import { useWindowManager } from '@/hooks/useWindowManager';
 import { DesktopIcon as DesktopIconType, AppType } from '@/types/window';
 
 const desktopIcons: DesktopIconType[] = [
-  { id: '1', name: 'Foam Browser', icon: '🌐', appType: 'foam' },
-  { id: '2', name: 'Chromify', icon: '🎨', appType: 'chromify' },
-  { id: '3', name: 'Scratch 2 Legacy', icon: '🐱', appType: 'scratch2legacy' },
+  { id: '1', name: 'Foam Browser', icon: 'https://i.ibb.co/PzsgGvc9/Screenshot-2025-12-21-163921.png', appType: 'foam' },
+  { id: '2', name: 'Chromify', icon: 'https://www.rw-designer.com/icon-image/25949-256x256x32.png', appType: 'chromify' },
+  { id: '3', name: 'Scratch 2 Legacy', icon: 'https://upload.wikimedia.org/wikipedia/commons/7/75/Scratch.logo.S.png', appType: 'scratch2legacy' },
   { id: '4', name: 'My Scratch Profile', icon: '👤', appType: 'scratchprofile' },
-  { id: '5', name: 'CattyMod', icon: '😺', appType: 'cattymod' },
-  { id: '6', name: 'AndroidY', icon: '🤖', appType: 'androidy' },
-  { id: '7', name: 'Best Scratch 2 Beta', icon: '⭐', appType: 'bestscratch2' },
-  { id: '8', name: 'Scrooch', icon: '🔄', appType: 'scrooch' },
-  { id: '9', name: 'Notepad', icon: '📝', appType: 'notepad' },
-  { id: '10', name: 'File Explorer', icon: '📁', appType: 'explorer' },
-  { id: '11', name: 'Paint', icon: '🖌️', appType: 'paint' },
-  { id: '12', name: 'Calculator', icon: '🔢', appType: 'calculator' },
+  { id: '5', name: 'CattyMod', icon: 'https://em-content.zobj.net/source/lg/307/regional-indicator-symbol-letter-c_1f1e8.png', appType: 'cattymod' },
+  { id: '6', name: 'AndroidY', icon: 'https://images.macrumors.com/t/-mcSOPyQtjkQ9MfRIevd6fBGeoI=/1600x/article-new/2015/03/Android-Icon-250x250.png', appType: 'androidy' },
+  { id: '7', name: 'Best Scratch 2 Beta', icon: 'https://user-images.githubusercontent.com/9469400/34407132-e7b63142-ebcd-11e7-85c6-f5ec56192005.png', appType: 'bestscratch2' },
+  { id: '8', name: 'Scrooch', icon: 'https://avatars.githubusercontent.com/u/221273265?s=200&v=4', appType: 'scrooch' },
+  { id: '9', name: 'Notepad', icon: 'https://em-content.zobj.net/source/microsoft-3D-fluent/433/paperclip_1f4ce.png', appType: 'notepad' },
+  { id: '10', name: 'File Explorer', icon: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Windows_Explorer.svg/1024px-Windows_Explorer.svg.png', appType: 'explorer' },
+  { id: '11', name: 'Paint', icon: 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/2b/Microsoft_Paint.svg/2048px-Microsoft_Paint.svg.png', appType: 'paint' },
+  { id: '12', name: 'Calculator', icon: 'https://i.ibb.co/Q3MFJ0S5/download-19.png', appType: 'calculator' },
 ];
 
 export const Desktop: React.FC = () => {
@@ -48,7 +48,10 @@ export const Desktop: React.FC = () => {
   };
 
   return (
-    <div className="h-screen w-screen overflow-hidden desktop-gradient">
+    <div 
+      className="h-screen w-screen overflow-hidden bg-cover bg-center bg-no-repeat"
+      style={{ backgroundImage: 'url(https://upload.wikimedia.org/wikipedia/commons/3/3a/Chandratal_1.JPG)' }}
+    >
       {/* Desktop Icons */}
       <div className="absolute inset-0 p-4 pb-16">
         <div className="flex flex-col flex-wrap gap-2 h-full content-start">
