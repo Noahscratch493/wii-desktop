@@ -8,6 +8,7 @@ interface DesktopIconProps {
 
 export const DesktopIcon: React.FC<DesktopIconProps> = ({ icon, onDoubleClick }) => {
   const isImageIcon = icon.icon.startsWith('http');
+  const isGitHub = icon.appType === 'github';
 
   return (
     <div
@@ -18,7 +19,7 @@ export const DesktopIcon: React.FC<DesktopIconProps> = ({ icon, onDoubleClick })
         <img 
           src={icon.icon} 
           alt={icon.name} 
-          className="w-10 h-10 mx-auto object-contain drop-shadow-lg"
+          className={`w-10 h-10 mx-auto object-contain drop-shadow-lg ${isGitHub ? 'rounded-lg' : ''}`}
         />
       ) : (
         <span className="text-4xl drop-shadow-lg">{icon.icon}</span>
