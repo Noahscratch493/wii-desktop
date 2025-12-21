@@ -18,7 +18,7 @@ const appConfigs: Record<AppType, { title: string; icon: string; width: number; 
   },
   chromify: {
     title: 'Chromify',
-    icon: 'https://cdn-icons-png.flaticon.com/512/7688/7688488.png',
+    icon: 'https://www.rw-designer.com/icon-image/25949-256x256x32.png',
     width: 900,
     height: 600,
     getContent: () => React.createElement(IframeApp, { url: 'https://chredit.lovable.app', title: 'Chromify' }),
@@ -102,13 +102,6 @@ const appConfigs: Record<AppType, { title: string; icon: string; width: number; 
     width: 320,
     height: 450,
     getContent: () => React.createElement(Calculator),
-  },
-  github: {
-    title: 'GitHub - noahscratch493',
-    icon: 'https://github.githubassets.com/assets/GitHub-Mark-ea2971cee799.png',
-    width: 900,
-    height: 600,
-    getContent: () => React.createElement(IframeApp, { url: 'https://github.com/noahscratch493', title: 'GitHub' }),
   },
 };
 

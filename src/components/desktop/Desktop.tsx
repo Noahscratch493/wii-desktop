@@ -8,7 +8,7 @@ import { DesktopIcon as DesktopIconType, AppType } from '@/types/window';
 
 const desktopIcons: DesktopIconType[] = [
   { id: '1', name: 'Foam Browser', icon: 'https://i.ibb.co/PzsgGvc9/Screenshot-2025-12-21-163921.png', appType: 'foam' },
-  { id: '2', name: 'Chromify', icon: 'https://cdn-icons-png.flaticon.com/512/7688/7688488.png', appType: 'chromify' },
+  { id: '2', name: 'Chromify', icon: 'https://www.rw-designer.com/icon-image/25949-256x256x32.png', appType: 'chromify' },
   { id: '3', name: 'Scratch 2 Legacy', icon: 'https://upload.wikimedia.org/wikipedia/commons/7/75/Scratch.logo.S.png', appType: 'scratch2legacy' },
   { id: '4', name: 'My Scratch Profile', icon: '👤', appType: 'scratchprofile' },
   { id: '5', name: 'CattyMod', icon: 'https://em-content.zobj.net/source/lg/307/regional-indicator-symbol-letter-c_1f1e8.png', appType: 'cattymod' },
@@ -19,7 +19,6 @@ const desktopIcons: DesktopIconType[] = [
   { id: '10', name: 'File Explorer', icon: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Windows_Explorer.svg/1024px-Windows_Explorer.svg.png', appType: 'explorer' },
   { id: '11', name: 'Paint', icon: 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/2b/Microsoft_Paint.svg/2048px-Microsoft_Paint.svg.png', appType: 'paint' },
   { id: '12', name: 'Calculator', icon: 'https://i.ibb.co/Q3MFJ0S5/download-19.png', appType: 'calculator' },
-  { id: '13', name: 'GitHub', icon: 'https://github.githubassets.com/assets/GitHub-Mark-ea2971cee799.png', appType: 'github' },
 ];
 
 export const Desktop: React.FC = () => {

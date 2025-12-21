@@ -25,8 +25,7 @@ export type AppType =
   | 'notepad'
   | 'explorer'
   | 'paint'
-  | 'calculator'
-  | 'github';
+  | 'calculator';
 
 export interface DesktopIcon {
   id: string;
