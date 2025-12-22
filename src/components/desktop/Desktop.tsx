@@ -52,14 +52,10 @@ export const Desktop: React.FC = () => {
   };
 
   const handleOpenApp = (appType: AppType) => {
-    // Calculate right-bottom corner position for My Bio
-    let x, y, width, height;
-    if (appType === 'mybio') {
-      width = 400;
-      height = 300;
-      x = window.innerWidth - width - 20; // 20px margin from right
-      y = window.innerHeight - height - 40; // 40px margin from bottom for taskbar
-    }
+    let width = 400;
+    let height = 300;
+    let x = (window.innerWidth - width) / 2; // center horizontally
+    let y = (window.innerHeight - height) / 2; // center vertically
 
     openWindow(appType, {
       x,
@@ -77,7 +73,7 @@ export const Desktop: React.FC = () => {
     focusWindow(id);
   };
 
-  // Auto-open My Bio
+  // Auto-open My Bio centered
   useEffect(() => {
     if (!windows.find((w) => w.appType === 'mybio')) {
       handleOpenApp('mybio');
