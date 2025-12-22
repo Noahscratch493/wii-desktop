@@ -26,7 +26,9 @@ export type AppType =
   | 'explorer'
   | 'paint'
   | 'calculator'
-  | 'github';
+  | 'github'
+  | 'store'
+  | 'vscode';
 
 export interface DesktopIcon {
   id: string;

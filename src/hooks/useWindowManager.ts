@@ -120,6 +120,23 @@ const appConfigs: Record<AppType, { title: string; icon: string; width: number; 
       )
     ),
   },
+  store: {
+    title: 'Microsoft Store',
+    icon: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/Microsoft_Store.svg/1030px-Microsoft_Store.svg.png',
+    width: 800,
+    height: 600,
+    getContent: () => {
+      const { MicrosoftStore } = require('@/components/apps/MicrosoftStore');
+      return React.createElement(MicrosoftStore);
+    },
+  },
+  vscode: {
+    title: 'Visual Studio Code',
+    icon: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/9a/Visual_Studio_Code_1.35_icon.svg/2048px-Visual_Studio_Code_1.35_icon.svg.png',
+    width: 1000,
+    height: 700,
+    getContent: () => React.createElement(IframeApp, { url: 'https://vscode.dev', title: 'Visual Studio Code' }),
+  },
 };
 
 export const useWindowManager = () => {
