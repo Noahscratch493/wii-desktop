@@ -20,6 +20,7 @@ const desktopIcons: DesktopIconType[] = [
   { id: '11', name: 'Paint', icon: 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/2b/Microsoft_Paint.svg/2048px-Microsoft_Paint.svg.png', appType: 'paint' },
   { id: '12', name: 'Calculator', icon: 'https://i.ibb.co/Q3MFJ0S5/download-19.png', appType: 'calculator' },
   { id: '13', name: 'GitHub', icon: 'https://github.githubassets.com/assets/GitHub-Mark-ea2971cee799.png', appType: 'github' },
+  { id: '14', name: 'Microsoft Store', icon: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/Microsoft_Store.svg/1030px-Microsoft_Store.svg.png', appType: 'store' },
 ];
 
 export const Desktop: React.FC = () => {
