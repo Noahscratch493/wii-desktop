@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Window } from './Window';
 import { DesktopIcon } from './DesktopIcon';
 import { Taskbar } from './Taskbar';
@@ -20,6 +20,7 @@ const desktopIcons: DesktopIconType[] = [
   { id: '11', name: 'Paint', icon: 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/2b/Microsoft_Paint.svg/2048px-Microsoft_Paint.svg.png', appType: 'paint' },
   { id: '12', name: 'Calculator', icon: 'https://i.ibb.co/Q3MFJ0S5/download-19.png', appType: 'calculator' },
   { id: '13', name: 'GitHub', icon: 'https://github.githubassets.com/assets/GitHub-Mark-ea2971cee799.png', appType: 'github' },
+  { id: '14', name: 'Flash Player', icon: 'https://cdn-icons-png.flaticon.com/512/893/893321.png', appType: 'flashplay' }, // NEW APP
 ];
 
 export const Desktop: React.FC = () => {
@@ -39,7 +40,12 @@ export const Desktop: React.FC = () => {
   } = useWindowManager();
 
   const handleOpenApp = (appType: AppType) => {
-    openWindow(appType);
+    openWindow(appType, {
+      x: appType === 'mybio' ? 20 : undefined,
+      y: appType === 'mybio' ? window.innerHeight - 320 : undefined,
+      width: appType === 'mybio' ? 400 : undefined,
+      height: appType === 'mybio' ? 300 : undefined,
+    });
     setIsStartMenuOpen(false);
   };
 
@@ -47,6 +53,13 @@ export const Desktop: React.FC = () => {
     setActiveWindowId(id);
     focusWindow(id);
   };
+
+  // Open My Bio automatically on mount if not already open
+  useEffect(() => {
+    if (!windows.find((w) => w.appType === 'mybio')) {
+      handleOpenApp('mybio');
+    }
+  }, []);
 
   return (
     <div 
