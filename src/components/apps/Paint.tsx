@@ -5,9 +5,11 @@ export const Paint: React.FC = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [isDrawing, setIsDrawing] = useState(false);
   const [color, setColor] = useState('#000000');
+  const [customColor, setCustomColor] = useState('#000000');
   const [brushSize, setBrushSize] = useState(5);
   const [tool, setTool] = useState<'pencil' | 'eraser' | 'line' | 'rect' | 'circle'>('pencil');
-  const [lastPos, setLastPos] = useState({ x: 0, y: 0 });
+  const [startPos, setStartPos] = useState<{ x: number; y: number } | null>(null);
+  const [canvasSnapshot, setCanvasSnapshot] = useState<ImageData | null>(null);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -31,34 +33,77 @@ export const Paint: React.FC = () => {
   };
 
   const startDrawing = (e: React.MouseEvent) => {
-    setIsDrawing(true);
     const pos = getPos(e);
-    setLastPos(pos);
+    setStartPos(pos);
+    setIsDrawing(true);
+
+    if (tool === 'pencil' || tool === 'eraser' || tool === 'line') {
+      const canvas = canvasRef.current;
+      const ctx = canvas?.getContext('2d');
+      if (ctx) {
+        ctx.beginPath();
+        ctx.moveTo(pos.x, pos.y);
+      }
+    }
+
+    // Save canvas snapshot for shapes
+    if (tool === 'rect' || tool === 'circle') {
+      const canvas = canvasRef.current;
+      const ctx = canvas?.getContext('2d');
+      if (ctx && canvas) {
+        setCanvasSnapshot(ctx.getImageData(0, 0, canvas.width, canvas.height));
+      }
+    }
   };
 
   const draw = (e: React.MouseEvent) => {
-    if (!isDrawing) return;
+    if (!isDrawing || !startPos) return;
+    const pos = getPos(e);
     const canvas = canvasRef.current;
     const ctx = canvas?.getContext('2d');
-    if (!ctx) return;
+    if (!ctx || !canvas) return;
 
-    const pos = getPos(e);
-
-    ctx.strokeStyle = tool === 'eraser' ? 'white' : color;
     ctx.lineWidth = brushSize;
     ctx.lineCap = 'round';
     ctx.lineJoin = 'round';
 
-    ctx.beginPath();
-    ctx.moveTo(lastPos.x, lastPos.y);
-    ctx.lineTo(pos.x, pos.y);
-    ctx.stroke();
-
-    setLastPos(pos);
+    if (tool === 'pencil' || tool === 'eraser') {
+      ctx.strokeStyle = tool === 'eraser' ? 'white' : color;
+      ctx.lineTo(pos.x, pos.y);
+      ctx.stroke();
+    } else if (tool === 'line') {
+      ctx.strokeStyle = color;
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      if (canvasSnapshot) ctx.putImageData(canvasSnapshot, 0, 0);
+      ctx.beginPath();
+      ctx.moveTo(startPos.x, startPos.y);
+      ctx.lineTo(pos.x, pos.y);
+      ctx.stroke();
+    } else if (tool === 'rect') {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      if (canvasSnapshot) ctx.putImageData(canvasSnapshot, 0, 0);
+      ctx.strokeStyle = color;
+      ctx.strokeRect(
+        Math.min(startPos.x, pos.x),
+        Math.min(startPos.y, pos.y),
+        Math.abs(pos.x - startPos.x),
+        Math.abs(pos.y - startPos.y)
+      );
+    } else if (tool === 'circle') {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      if (canvasSnapshot) ctx.putImageData(canvasSnapshot, 0, 0);
+      ctx.strokeStyle = color;
+      const radius = Math.sqrt(Math.pow(pos.x - startPos.x, 2) + Math.pow(pos.y - startPos.y, 2));
+      ctx.beginPath();
+      ctx.arc(startPos.x, startPos.y, radius, 0, Math.PI * 2);
+      ctx.stroke();
+    }
   };
 
   const stopDrawing = () => {
     setIsDrawing(false);
+    setStartPos(null);
+    setCanvasSnapshot(null);
   };
 
   const clearCanvas = () => {
@@ -70,50 +115,35 @@ export const Paint: React.FC = () => {
     }
   };
 
-  const colors = ['#000000', '#ffffff', '#ff0000', '#00ff00', '#0000ff', '#ffff00', '#ff00ff', '#00ffff', '#ff8000', '#8000ff'];
+  const presetColors = ['#000000', '#ffffff', '#ff0000', '#00ff00', '#0000ff', '#ffff00', '#ff00ff', '#00ffff', '#ff8000', '#8000ff'];
 
   return (
     <div className="h-full flex flex-col bg-secondary">
       {/* Toolbar */}
       <div className="flex items-center gap-2 p-2 border-b border-border">
         <div className="flex gap-1">
-          <button
-            className={`p-2 rounded ${tool === 'pencil' ? 'bg-primary text-primary-foreground' : 'hover:bg-muted'}`}
-            onClick={() => setTool('pencil')}
-          >
-            <Pencil className="w-4 h-4" />
-          </button>
-          <button
-            className={`p-2 rounded ${tool === 'eraser' ? 'bg-primary text-primary-foreground' : 'hover:bg-muted'}`}
-            onClick={() => setTool('eraser')}
-          >
-            <Eraser className="w-4 h-4" />
-          </button>
-          <button
-            className={`p-2 rounded ${tool === 'line' ? 'bg-primary text-primary-foreground' : 'hover:bg-muted'}`}
-            onClick={() => setTool('line')}
-          >
-            <Minus className="w-4 h-4" />
-          </button>
-          <button
-            className={`p-2 rounded ${tool === 'rect' ? 'bg-primary text-primary-foreground' : 'hover:bg-muted'}`}
-            onClick={() => setTool('rect')}
-          >
-            <Square className="w-4 h-4" />
-          </button>
-          <button
-            className={`p-2 rounded ${tool === 'circle' ? 'bg-primary text-primary-foreground' : 'hover:bg-muted'}`}
-            onClick={() => setTool('circle')}
-          >
-            <Circle className="w-4 h-4" />
-          </button>
+          {[
+            { t: 'pencil', icon: <Pencil /> },
+            { t: 'eraser', icon: <Eraser /> },
+            { t: 'line', icon: <Minus /> },
+            { t: 'rect', icon: <Square /> },
+            { t: 'circle', icon: <Circle /> },
+          ].map((btn) => (
+            <button
+              key={btn.t}
+              className={`p-2 rounded border ${tool === btn.t ? 'bg-primary text-white' : 'bg-white text-black hover:bg-gray-200'}`}
+              onClick={() => setTool(btn.t as any)}
+            >
+              {btn.icon}
+            </button>
+          ))}
         </div>
 
         <div className="h-6 w-px bg-border" />
 
         {/* Colors */}
         <div className="flex gap-1">
-          {colors.map((c) => (
+          {presetColors.map((c) => (
             <button
               key={c}
               className={`w-6 h-6 rounded border ${color === c ? 'border-primary border-2' : 'border-border'}`}
@@ -121,6 +151,16 @@ export const Paint: React.FC = () => {
               onClick={() => setColor(c)}
             />
           ))}
+          {/* Custom color picker */}
+          <input
+            type="color"
+            value={customColor}
+            onChange={(e) => {
+              setCustomColor(e.target.value);
+              setColor(e.target.value);
+            }}
+            className="w-6 h-6 p-0 border border-border rounded"
+          />
         </div>
 
         <div className="h-6 w-px bg-border" />
