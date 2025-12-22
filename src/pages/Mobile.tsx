@@ -32,7 +32,6 @@ const mobileApps: MobileApp[] = [
   { id: '11', name: 'Paint', icon: 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/2b/Microsoft_Paint.svg/2048px-Microsoft_Paint.svg.png', appType: 'paint', tileSize: 'medium', tileColor: '#68217a' },
   { id: '12', name: 'Calculator', icon: 'https://i.ibb.co/Q3MFJ0S5/download-19.png', appType: 'calculator', tileSize: 'medium', tileColor: '#107c10' },
   { id: '13', name: 'GitHub', icon: 'https://github.githubassets.com/assets/GitHub-Mark-ea2971cee799.png', appType: 'github', tileSize: 'wide', tileColor: '#24292e' },
-  { id: '14', name: 'VS Code', icon: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/9a/Visual_Studio_Code_1.35_icon.svg/2048px-Visual_Studio_Code_1.35_icon.svg.png', appType: 'vscode', tileSize: 'medium', tileColor: '#007acc' },
 ];
 
 const getAppContent = (appType: AppType): React.ReactNode => {
@@ -55,12 +54,11 @@ const getAppContent = (appType: AppType): React.ReactNode => {
       return <Paint />;
     case 'calculator':
       return <Calculator />;
-    case 'vscode':
-      return <IframeApp url="https://vscode.dev" title="VS Code" />;
     default:
       return null;
   }
 };
+
 
 const getTileStyles = (size: TileSize): string => {
   switch (size) {
