@@ -5,6 +5,7 @@ import { Taskbar } from './Taskbar';
 import { StartMenu } from './StartMenu';
 import { useWindowManager } from '@/hooks/useWindowManager';
 import { DesktopIcon as DesktopIconType, AppType } from '@/types/window';
+import { IframeApp } from '@/components/apps/IframeApp';
 
 const desktopIcons: DesktopIconType[] = [
   { id: '1', name: 'Foam Browser', icon: 'https://i.ibb.co/H6ND4p9/google-chrome-logo-1.png', appType: 'foam' },
@@ -20,6 +21,7 @@ const desktopIcons: DesktopIconType[] = [
   { id: '11', name: 'Paint', icon: 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/2b/Microsoft_Paint.svg/2048px-Microsoft_Paint.svg.png', appType: 'paint' },
   { id: '12', name: 'Calculator', icon: 'https://i.ibb.co/Q3MFJ0S5/download-19.png', appType: 'calculator' },
   { id: '13', name: 'GitHub', icon: 'https://github.githubassets.com/assets/GitHub-Mark-ea2971cee799.png', appType: 'github' },
+  { id: '14', name: 'Flash Player', icon: 'https://cdn-icons-png.flaticon.com/512/893/893321.png', appType: 'flashplay' },
 ];
 
 export const Desktop: React.FC = () => {
@@ -40,6 +42,7 @@ export const Desktop: React.FC = () => {
 
   const handleOpenApp = (appType: AppType) => {
     openWindow(appType, {
+      // Default position for My Bio
       x: appType === 'mybio' ? 20 : undefined,
       y: appType === 'mybio' ? window.innerHeight - 320 : undefined,
       width: appType === 'mybio' ? 400 : undefined,
@@ -53,12 +56,30 @@ export const Desktop: React.FC = () => {
     focusWindow(id);
   };
 
-  // Open My Bio automatically on mount if not already open
+  // Open My Bio automatically on mount
   useEffect(() => {
     if (!windows.find((w) => w.appType === 'mybio')) {
       handleOpenApp('mybio');
     }
   }, []);
+
+  // Function to render app content, including Flash Player via Ruffle
+  const getAppContent = (appType: AppType) => {
+    switch (appType) {
+      case 'mybio':
+        return <IframeApp url="https://noahscratch493.bio.link" title="My Bio" />;
+      case 'flashplay':
+        return <IframeApp url="https://ruffle.rs/demo/" title="Flash Player" />;
+      case 'explorer':
+        return <Window title="Explorer" content={<div>File Explorer Placeholder</div>} />;
+      case 'paint':
+        return <Window title="Paint" content={<div>Paint Placeholder</div>} />;
+      case 'calculator':
+        return <Window title="Calculator" content={<div>Calculator Placeholder</div>} />;
+      default:
+        return null;
+    }
+  };
 
   return (
     <div 
@@ -90,7 +111,9 @@ export const Desktop: React.FC = () => {
           onFocus={handleFocus}
           onMove={moveWindow}
           onResize={resizeWindow}
-        />
+        >
+          {getAppContent(win.appType)}
+        </Window>
       ))}
 
       {/* Start Menu */}
