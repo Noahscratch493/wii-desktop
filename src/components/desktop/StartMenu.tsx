@@ -9,18 +9,19 @@ interface StartMenuProps {
 }
 
 const pinnedApps = [
-  { icon: 'https://i.ibb.co/PzsgGvc9/Screenshot-2025-12-21-163921.png', name: 'Foam', appType: 'foam' as AppType },
-  { icon: 'https://www.rw-designer.com/icon-image/25949-256x256x32.png', name: 'Chromify', appType: 'chromify' as AppType },
+  { icon: 'https://i.ibb.co/H6ND4p9/google-chrome-logo-1.png', name: 'Foam', appType: 'foam' as AppType },
+  { icon: 'https://cdn-icons-png.flaticon.com/512/7688/7688488.png', name: 'Chromify', appType: 'chromify' as AppType },
   { icon: 'https://upload.wikimedia.org/wikipedia/commons/7/75/Scratch.logo.S.png', name: 'Scratch 2', appType: 'scratch2legacy' as AppType },
-  { icon: '👤', name: 'My Profile', appType: 'scratchprofile' as AppType },
+  { icon: 'https://i.ibb.co/2121gqwg/backdrop1.png', name: 'My Bio', appType: 'mybio' as AppType },
   { icon: 'https://em-content.zobj.net/source/lg/307/regional-indicator-symbol-letter-c_1f1e8.png', name: 'CattyMod', appType: 'cattymod' as AppType },
   { icon: 'https://images.macrumors.com/t/-mcSOPyQtjkQ9MfRIevd6fBGeoI=/1600x/article-new/2015/03/Android-Icon-250x250.png', name: 'AndroidY', appType: 'androidy' as AppType },
-  { icon: 'https://user-images.githubusercontent.com/9469400/34407132-e7b63142-ebcd-11e7-85c6-f5ec56192005.png', name: 'Scratch 2 Beta', appType: 'bestscratch2' as AppType },
+  { icon: 'https://user-images.githubusercontent.com/9469400/34407132-e7b63142-ebcd-11e7-85c6-f5ec56192005.png', name: 'Scratch 2 Beta', appType: 'scratch2beta' as AppType },
   { icon: 'https://avatars.githubusercontent.com/u/221273265?s=200&v=4', name: 'Scrooch', appType: 'scrooch' as AppType },
   { icon: 'https://em-content.zobj.net/source/microsoft-3D-fluent/433/paperclip_1f4ce.png', name: 'Notepad', appType: 'notepad' as AppType },
   { icon: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Windows_Explorer.svg/1024px-Windows_Explorer.svg.png', name: 'Explorer', appType: 'explorer' as AppType },
   { icon: 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/2b/Microsoft_Paint.svg/2048px-Microsoft_Paint.svg.png', name: 'Paint', appType: 'paint' as AppType },
   { icon: 'https://i.ibb.co/Q3MFJ0S5/download-19.png', name: 'Calculator', appType: 'calculator' as AppType },
+  { icon: 'https://github.githubassets.com/assets/GitHub-Mark-ea2971cee799.png', name: 'GitHub', appType: 'github' as AppType },
 ];
 
 export const StartMenu: React.FC<StartMenuProps> = ({ isOpen, onClose, onAppClick }) => {
