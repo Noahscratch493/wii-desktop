@@ -40,7 +40,6 @@ export const Desktop: React.FC = () => {
     toggleMinimize,
   } = useWindowManager();
 
-  // Returns the app content for each app
   const getAppContent = (appType: AppType) => {
     switch (appType) {
       case 'mybio':
@@ -53,16 +52,23 @@ export const Desktop: React.FC = () => {
   };
 
   const handleOpenApp = (appType: AppType) => {
-    // Default position for My Bio: bottom-right corner
-    const defaultWindowOptions = {
-      x: appType === 'mybio' ? window.innerWidth - 420 : undefined,
-      y: appType === 'mybio' ? window.innerHeight - 320 : undefined,
-      width: appType === 'mybio' ? 400 : undefined,
-      height: appType === 'mybio' ? 300 : undefined,
-      content: getAppContent(appType),
-    };
+    // Calculate right-bottom corner position for My Bio
+    let x, y, width, height;
+    if (appType === 'mybio') {
+      width = 400;
+      height = 300;
+      x = window.innerWidth - width - 20; // 20px margin from right
+      y = window.innerHeight - height - 40; // 40px margin from bottom for taskbar
+    }
 
-    openWindow(appType, defaultWindowOptions);
+    openWindow(appType, {
+      x,
+      y,
+      width,
+      height,
+      content: getAppContent(appType),
+    });
+
     setIsStartMenuOpen(false);
   };
 
@@ -71,7 +77,7 @@ export const Desktop: React.FC = () => {
     focusWindow(id);
   };
 
-  // Auto-open My Bio on mount
+  // Auto-open My Bio
   useEffect(() => {
     if (!windows.find((w) => w.appType === 'mybio')) {
       handleOpenApp('mybio');
@@ -109,7 +115,7 @@ export const Desktop: React.FC = () => {
           onMove={moveWindow}
           onResize={resizeWindow}
         >
-          {win.content /* Use the content we set when opening */}
+          {win.content}
         </Window>
       ))}
 
