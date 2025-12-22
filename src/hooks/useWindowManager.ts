@@ -11,7 +11,7 @@ import React from 'react';
 const appConfigs: Record<AppType, { title: string; icon: string; width: number; height: number; getContent: () => ReactNode }> = {
   foam: {
     title: 'Foam Browser',
-    icon: 'https://i.ibb.co/PzsgGvc9/Screenshot-2025-12-21-163921.png',
+    icon: 'https://i.ibb.co/H6ND4p9/google-chrome-logo-1.png',
     width: 900,
     height: 600,
     getContent: () => React.createElement(FoamBrowser),
@@ -30,12 +30,12 @@ const appConfigs: Record<AppType, { title: string; icon: string; width: number; 
     height: 650,
     getContent: () => React.createElement(IframeApp, { url: 'https://noahscratch493.github.io/Scratch-2-Legacy', title: 'Scratch 2 Legacy' }),
   },
-  scratchprofile: {
-    title: 'noahscratch493 - Scratch Profile',
-    icon: '👤',
+  mybio: {
+    title: 'My Bio',
+    icon: 'https://i.ibb.co/2121gqwg/backdrop1.png',
     width: 800,
     height: 600,
-    getContent: () => React.createElement(IframeApp, { url: 'https://noahscratch493.github.io/ScratchFrame/profile/?username=noahscratch493', title: 'Scratch Profile' }),
+    getContent: () => React.createElement(IframeApp, { url: 'https://noahscratch493.bio.link', title: 'My Bio' }),
   },
   cattymod: {
     title: 'CattyMod',
@@ -61,12 +61,12 @@ const appConfigs: Record<AppType, { title: string; icon: string; width: number; 
     height: 600,
     getContent: () => React.createElement(IframeApp, { url: 'https://noahscratch493.github.io/androidy/', title: 'AndroidY' }),
   },
-  bestscratch2: {
-    title: 'Best Scratch 2 Beta',
+  scratch2beta: {
+    title: 'Scratch 2 Beta',
     icon: 'https://user-images.githubusercontent.com/9469400/34407132-e7b63142-ebcd-11e7-85c6-f5ec56192005.png',
     width: 900,
     height: 650,
-    getContent: () => React.createElement(IframeApp, { url: 'https://noahscratch493.github.io/scratchlite/', title: 'Best Scratch 2 Beta' }),
+    getContent: () => React.createElement(IframeApp, { url: 'https://noahscratch493.github.io/scratchlite/', title: 'Scratch 2 Beta' }),
   },
   scrooch: {
     title: 'Scrooch',
@@ -106,9 +106,19 @@ const appConfigs: Record<AppType, { title: string; icon: string; width: number; 
   github: {
     title: 'GitHub - noahscratch493',
     icon: 'https://github.githubassets.com/assets/GitHub-Mark-ea2971cee799.png',
-    width: 900,
-    height: 600,
-    getContent: () => React.createElement(IframeApp, { url: 'https://github.com/noahscratch493', title: 'GitHub' }),
+    width: 400,
+    height: 300,
+    getContent: () => React.createElement('div', { className: 'h-full flex items-center justify-center bg-card' },
+      React.createElement('div', { className: 'text-center' },
+        React.createElement('p', { className: 'text-card-foreground mb-4' }, 'GitHub opens in a new tab'),
+        React.createElement('a', { 
+          href: 'https://github.com/noahscratch493', 
+          target: '_blank', 
+          rel: 'noopener noreferrer',
+          className: 'px-4 py-2 bg-primary text-primary-foreground rounded hover:bg-primary/90'
+        }, 'Open GitHub')
+      )
+    ),
   },
 };
 
@@ -120,6 +130,11 @@ export const useWindowManager = () => {
     // Check if CattyMod - open in new tab
     if (appType === 'cattymod') {
       window.open('https://cattymod.github.io', '_blank');
+      return;
+    }
+    // Check if GitHub - open in new tab
+    if (appType === 'github') {
+      window.open('https://github.com/noahscratch493', '_blank');
       return;
     }
 
