@@ -22,7 +22,6 @@ const pinnedApps = [
   { icon: 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/2b/Microsoft_Paint.svg/2048px-Microsoft_Paint.svg.png', name: 'Paint', appType: 'paint' as AppType },
   { icon: 'https://i.ibb.co/Q3MFJ0S5/download-19.png', name: 'Calculator', appType: 'calculator' as AppType },
   { icon: 'https://github.githubassets.com/assets/GitHub-Mark-ea2971cee799.png', name: 'GitHub', appType: 'github' as AppType },
-  { icon: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/Microsoft_Store.svg/1030px-Microsoft_Store.svg.png', name: 'Store', appType: 'store' as AppType },
 ];
 
 export const StartMenu: React.FC<StartMenuProps> = ({ isOpen, onClose, onAppClick }) => {
