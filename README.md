@@ -1,73 +1,60 @@
-# Welcome to your Lovable project
+# 15OS (My Personal Site!)
 
-## Project info
+**Live site:** [noahscratch493.github.io](https://noahscratch493.github.io)
 
-**URL**: https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID
+This site is a **fully interactive Windows 10–style personal desktop**, but everything is about me, Noah. It’s a playful mix of nostalgia, humor, and creativity, designed to feel like a miniature Windows 10 computer running in your browser.
 
-## How can I edit this code?
+---
 
-There are several ways of editing your application.
+## **Features**
 
-**Use Lovable**
+### **Desktop & Start Menu**
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and start prompting.
+* Includes apps like:
 
-Changes made via Lovable will be committed automatically to this repo.
+  * **Foam** (Chrome parody made with **Show Me Whiteboard Rubbers**)
+  * **Chromify**
+  * **Scratch 2 Beta**
+  * **Scratch 2 Legacy**
+  * **Scrooch**
+  * **Clippy as Notepad**
+  * And other personal apps and projects
+* Toolbar icons highlight when selected, and black icons remain visible when not active.
+* Taskbar shows running apps with icons and titles.
 
-**Use your preferred IDE**
+### **Paint App**
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+* Fully functional drawing app with:
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+  * **Pencil**, **Eraser**, **Line**, **Rectangle**, **Circle**
+  * Preset colors + **custom color picker**
+  * Adjustable brush size
+  * Clear canvas button
+* Shapes and lines use a **preview system** so your drawing is never erased while using rectangle, circle, or line tools.
 
-Follow these steps:
+### **Windows 10 Mobile Layout**
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+* Simulates **Windows 10 Mobile** for smaller screens.
+* Includes **live tiles of different sizes**, with icons and names underneath.
+* Works interactively like a mobile OS, though some apps are desktop-only.
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+### **Humor & Easter Eggs**
 
-# Step 3: Install the necessary dependencies.
-npm i
+* Foam icon made from **Show Me Whiteboard Rubbers** — silly and fun!
+* Clippy acts as Notepad using TinyMCE.
+* Multiple Scratch versions on the desktop, including a hacked Scratch 2 Beta.
+* Nostalgic nods to old Windows and early web tools.
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
-```
+---
 
-**Edit a file directly in GitHub**
+## **Credits**
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+* **Show Me Whiteboard Rubbers** — for inspiring Foam’s icon colors.
+* **Lucide & Font Awesome icons** — for toolbar and taskbar graphics.
+* **Scratch / Scratch 2 Beta / Scratch 2 Legacy** — for nostalgic app references.
 
-**Use GitHub Codespaces**
+---
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+## **To-Do**
 
-## What technologies are used for this project?
-
-This project is built with:
-
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
-
-## How can I deploy this project?
-
-Simply open [Lovable](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and click on Share -> Publish.
-
-## Can I connect a custom domain to my Lovable project?
-
-Yes, you can!
-
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
-
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+* Implement **Microsoft Store** to let users “install” apps like VS Code and Scratch 2 Beta (currently not available on the live site).
