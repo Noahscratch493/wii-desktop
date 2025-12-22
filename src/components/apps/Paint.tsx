@@ -37,19 +37,17 @@ export const Paint: React.FC = () => {
     setStartPos(pos);
     setIsDrawing(true);
 
-    if (tool === 'pencil' || tool === 'eraser' || tool === 'line') {
-      const canvas = canvasRef.current;
-      const ctx = canvas?.getContext('2d');
+    const canvas = canvasRef.current;
+    const ctx = canvas?.getContext('2d');
+
+    if (tool === 'pencil' || tool === 'eraser') {
       if (ctx) {
         ctx.beginPath();
         ctx.moveTo(pos.x, pos.y);
       }
     }
 
-    // Save canvas snapshot for shapes
-    if (tool === 'rect' || tool === 'circle') {
-      const canvas = canvasRef.current;
-      const ctx = canvas?.getContext('2d');
+    if (tool === 'line' || tool === 'rect' || tool === 'circle') {
       if (ctx && canvas) {
         setCanvasSnapshot(ctx.getImageData(0, 0, canvas.width, canvas.height));
       }
@@ -71,32 +69,30 @@ export const Paint: React.FC = () => {
       ctx.strokeStyle = tool === 'eraser' ? 'white' : color;
       ctx.lineTo(pos.x, pos.y);
       ctx.stroke();
-    } else if (tool === 'line') {
+    } else if (tool === 'line' || tool === 'rect' || tool === 'circle') {
+      if (!canvasSnapshot) return;
+      // Reset canvas to snapshot to avoid clearing previous drawing
+      ctx.putImageData(canvasSnapshot, 0, 0);
+
       ctx.strokeStyle = color;
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      if (canvasSnapshot) ctx.putImageData(canvasSnapshot, 0, 0);
-      ctx.beginPath();
-      ctx.moveTo(startPos.x, startPos.y);
-      ctx.lineTo(pos.x, pos.y);
-      ctx.stroke();
-    } else if (tool === 'rect') {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      if (canvasSnapshot) ctx.putImageData(canvasSnapshot, 0, 0);
-      ctx.strokeStyle = color;
-      ctx.strokeRect(
-        Math.min(startPos.x, pos.x),
-        Math.min(startPos.y, pos.y),
-        Math.abs(pos.x - startPos.x),
-        Math.abs(pos.y - startPos.y)
-      );
-    } else if (tool === 'circle') {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      if (canvasSnapshot) ctx.putImageData(canvasSnapshot, 0, 0);
-      ctx.strokeStyle = color;
-      const radius = Math.sqrt(Math.pow(pos.x - startPos.x, 2) + Math.pow(pos.y - startPos.y, 2));
-      ctx.beginPath();
-      ctx.arc(startPos.x, startPos.y, radius, 0, Math.PI * 2);
-      ctx.stroke();
+      if (tool === 'line') {
+        ctx.beginPath();
+        ctx.moveTo(startPos.x, startPos.y);
+        ctx.lineTo(pos.x, pos.y);
+        ctx.stroke();
+      } else if (tool === 'rect') {
+        ctx.strokeRect(
+          Math.min(startPos.x, pos.x),
+          Math.min(startPos.y, pos.y),
+          Math.abs(pos.x - startPos.x),
+          Math.abs(pos.y - startPos.y)
+        );
+      } else if (tool === 'circle') {
+        const radius = Math.sqrt(Math.pow(pos.x - startPos.x, 2) + Math.pow(pos.y - startPos.y, 2));
+        ctx.beginPath();
+        ctx.arc(startPos.x, startPos.y, radius, 0, Math.PI * 2);
+        ctx.stroke();
+      }
     }
   };
 
@@ -131,7 +127,9 @@ export const Paint: React.FC = () => {
           ].map((btn) => (
             <button
               key={btn.t}
-              className={`p-2 rounded border ${tool === btn.t ? 'bg-primary text-white' : 'bg-white text-black hover:bg-gray-200'}`}
+              className={`p-2 rounded border ${
+                tool === btn.t ? 'bg-primary text-white' : 'bg-white text-black hover:bg-gray-200'
+              }`}
               onClick={() => setTool(btn.t as any)}
             >
               {btn.icon}
@@ -151,7 +149,6 @@ export const Paint: React.FC = () => {
               onClick={() => setColor(c)}
             />
           ))}
-          {/* Custom color picker */}
           <input
             type="color"
             value={customColor}
