@@ -40,14 +40,29 @@ export const Desktop: React.FC = () => {
     toggleMinimize,
   } = useWindowManager();
 
+  // Returns the app content for each app
+  const getAppContent = (appType: AppType) => {
+    switch (appType) {
+      case 'mybio':
+        return <IframeApp url="https://noahscratch493.bio.link" title="My Bio" />;
+      case 'flashplay':
+        return <IframeApp url="https://ruffle.rs/demo/" title="Flash Player" />;
+      default:
+        return <div className="p-4 text-white">Content not available</div>;
+    }
+  };
+
   const handleOpenApp = (appType: AppType) => {
-    openWindow(appType, {
-      // Default position for My Bio
-      x: appType === 'mybio' ? 20 : undefined,
+    // Default position for My Bio: bottom-right corner
+    const defaultWindowOptions = {
+      x: appType === 'mybio' ? window.innerWidth - 420 : undefined,
       y: appType === 'mybio' ? window.innerHeight - 320 : undefined,
       width: appType === 'mybio' ? 400 : undefined,
       height: appType === 'mybio' ? 300 : undefined,
-    });
+      content: getAppContent(appType),
+    };
+
+    openWindow(appType, defaultWindowOptions);
     setIsStartMenuOpen(false);
   };
 
@@ -56,30 +71,12 @@ export const Desktop: React.FC = () => {
     focusWindow(id);
   };
 
-  // Open My Bio automatically on mount
+  // Auto-open My Bio on mount
   useEffect(() => {
     if (!windows.find((w) => w.appType === 'mybio')) {
       handleOpenApp('mybio');
     }
   }, []);
-
-  // Function to render app content, including Flash Player via Ruffle
-  const getAppContent = (appType: AppType) => {
-    switch (appType) {
-      case 'mybio':
-        return <IframeApp url="https://noahscratch493.bio.link" title="My Bio" />;
-      case 'flashplay':
-        return <IframeApp url="https://ruffle.rs/demo/" title="Flash Player" />;
-      case 'explorer':
-        return <Window title="Explorer" content={<div>File Explorer Placeholder</div>} />;
-      case 'paint':
-        return <Window title="Paint" content={<div>Paint Placeholder</div>} />;
-      case 'calculator':
-        return <Window title="Calculator" content={<div>Calculator Placeholder</div>} />;
-      default:
-        return null;
-    }
-  };
 
   return (
     <div 
@@ -112,7 +109,7 @@ export const Desktop: React.FC = () => {
           onMove={moveWindow}
           onResize={resizeWindow}
         >
-          {getAppContent(win.appType)}
+          {win.content /* Use the content we set when opening */}
         </Window>
       ))}
 
