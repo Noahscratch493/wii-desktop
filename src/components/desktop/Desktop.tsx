@@ -21,7 +21,6 @@ const desktopIcons: DesktopIconType[] = [
   { id: '11', name: 'Paint', icon: 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/2b/Microsoft_Paint.svg/2048px-Microsoft_Paint.svg.png', appType: 'paint' },
   { id: '12', name: 'Calculator', icon: 'https://i.ibb.co/Q3MFJ0S5/download-19.png', appType: 'calculator' },
   { id: '13', name: 'GitHub', icon: 'https://github.githubassets.com/assets/GitHub-Mark-ea2971cee799.png', appType: 'github' },
-  { id: '14', name: 'Flash Player', icon: 'https://cdn-icons-png.flaticon.com/512/893/893321.png', appType: 'flashplay' },
 ];
 
 export const Desktop: React.FC = () => {
