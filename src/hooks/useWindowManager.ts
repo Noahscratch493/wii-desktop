@@ -59,7 +59,7 @@ const appConfigs: Record<AppType, { title: string; icon: string; width: number; 
     icon: 'https://images.macrumors.com/t/-mcSOPyQtjkQ9MfRIevd6fBGeoI=/1600x/article-new/2015/03/Android-Icon-250x250.png',
     width: 800,
     height: 600,
-    getContent: () => React.createElement(IframeApp, { url: 'https://noahscratch493.github.io/androidy/', title: 'AndroidY' }),
+    getContent: () => React.createElement(IframeApp, { url: 'https://more.cattymod.app/androidy', title: 'AndroidY' }),
   },
   scratch2beta: {
     title: 'Scratch 2 Beta',

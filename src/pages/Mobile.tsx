@@ -43,7 +43,7 @@ const getAppContent = (appType: AppType): React.ReactNode => {
     case 'mybio':
       return <IframeApp url="https://noahscratch493.bio.link" title="My Bio" />;
     case 'androidy':
-      return <IframeApp url="https://noahscratch493.github.io/androidy/" title="AndroidY" />;
+      return <IframeApp url="https://more.cattymod.app/androidy" title="AndroidY" />;
     case 'scrooch':
       return <IframeApp url="https://scrooch-project.github.io" title="Scrooch" />;
     case 'notepad':
