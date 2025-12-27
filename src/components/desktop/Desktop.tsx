@@ -39,31 +39,8 @@ export const Desktop: React.FC = () => {
     toggleMinimize,
   } = useWindowManager();
 
-  const getAppContent = (appType: AppType) => {
-    switch (appType) {
-      case 'mybio':
-        return <IframeApp url="https://noahscratch493.bio.link" title="My Bio" />;
-      case 'flashplay':
-        return <IframeApp url="https://ruffle.rs/demo/" title="Flash Player" />;
-      default:
-        return <div className="p-4 text-white">Content not available</div>;
-    }
-  };
-
   const handleOpenApp = (appType: AppType) => {
-    let width = 400;
-    let height = 300;
-    let x = (window.innerWidth - width) / 2; // center horizontally
-    let y = (window.innerHeight - height) / 2; // center vertically
-
-    openWindow(appType, {
-      x,
-      y,
-      width,
-      height,
-      content: getAppContent(appType),
-    });
-
+    openWindow(appType);
     setIsStartMenuOpen(false);
   };
 
@@ -106,12 +83,13 @@ export const Desktop: React.FC = () => {
           onClose={closeWindow}
           onMinimize={minimizeWindow}
           onMaximize={maximizeWindow}
-          onFocus={handleFocus}
+          onFocus={(id) => {
+            setActiveWindowId(id);
+            focusWindow(id);
+          }}
           onMove={moveWindow}
           onResize={resizeWindow}
-        >
-          {win.content}
-        </Window>
+        />
       ))}
 
       {/* Start Menu */}
