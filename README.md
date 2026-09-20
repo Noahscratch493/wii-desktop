@@ -2,7 +2,7 @@
 
 **Live site:** [noahscratch493.github.io](https://noahscratch493.github.io)
 
-This site is a **fully interactive Windows 10–style personal desktop**, but everything is about me, Noah. It’s a playful mix of nostalgia, humor, and creativity, designed to feel like a miniature Windows 10 computer running in your browser.
+This site is a **fully interactive Windows 10–style personal desktop**, but everything is about me, Noahscratch493. It’s a playful mix of nostalgia, humor, and creativity, designed to feel like a miniature Windows 10 computer running in your browser.
 
 ---
 
